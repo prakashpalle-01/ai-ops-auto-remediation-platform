@@ -1,11 +1,28 @@
 # AI Ops & Auto-Remediation Platform
 
-A production-oriented scaffold for operational monitoring, alerting, diagnosis, and automated remediation workflows for AI systems.
+A practical FastAPI service for monitoring AI systems, evaluating alerts, and suggesting remediation actions for common operational issues.
 
-## Included
+## What it does
 
-- FastAPI service entrypoint
-- Health check endpoint
-- Alert and remediation API placeholder
-- Test scaffold
-- Packaging metadata
+- Accepts operational alerts with severity and category
+- Stores a lightweight remediation knowledge base
+- Produces ranked remediation suggestions
+- Exposes a WebSocket stream for alert events
+- Ships with smoke tests and packaging metadata
+
+## API
+
+- `GET /health` - service readiness
+- `POST /alerts` - ingest an alert
+- `GET /alerts/{alert_id}` - inspect an alert
+- `POST /remediate` - generate remediation guidance for an alert
+- `WS /ws/alerts` - stream alert events
+
+## Run locally
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .[test]
+uvicorn src.main:app --reload
+```
